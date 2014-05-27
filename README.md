@@ -1,4 +1,4 @@
-MATLABFileEx
+ConvertTDMS
 ============
 
 Repo of submissions to MATLAB File Exchange

@@ -1,4 +1,6 @@
-Copyright (c) 2014, humphreysb
+Copyright (c) 2014, Brad Humphreys
+Copyright (c) 2010, Robert
+Copyright (c) 2010, Grant Lohsen
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification,

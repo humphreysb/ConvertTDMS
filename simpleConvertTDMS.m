@@ -1,4 +1,4 @@
-function [ConvertedData,ConvertVer,ChanNames,GroupNames,ci]=convertTDMS(varargin)
+function [ConvertedData,ConvertVer,ChanNames,GroupNames,ci]=simpleConvertTDMS(varargin)
 %Function to load LabView TDMS data file(s) into variables in the MATLAB workspace.
 %An *.MAT file can also be created.  If called with one input, the user selects
 %a data file.
@@ -255,6 +255,15 @@ function [ConvertedData,ConvertVer,ChanNames,GroupNames,ci]=convertTDMS(varargin
 %Corrected issue where when properties, but not raw data was updated in a
 %later segment (rawDataIndex=FFFFFFFF), the channel index was still
 %appended with a copy of the previous entries data.
+%-------------------------------------------------------------------------
+
+%-------------------------------------------------------------------------
+%Sebastian Schwarzendahl (alias Haench) - v1.99 2014-10-23
+% Added support for complex data types 
+% CSG - tdsTypeComplexSingleFloat=0x08000c 
+% CDB - tdsTypeComplexDoubleFloat=0x10000d)
+% This feature was added in LV2013 (I believ) and produced an error in 
+% the previous version of this code.
 %-------------------------------------------------------------------------
 
 
@@ -1234,7 +1243,17 @@ for kk=1:length(fnm)    %Loop through objects
                                 data=convertToText(data);
                             end
                         else
-                            [data,cnt]=fread(fid,nvals*id.multiplier(rr),matType,kTocEndian);
+                            % Added by Haench start
+                            if  (id.dataType == 524300) || (id.dataType == 1048589) % complex CDB data
+                                [data,cnt]=fread(fid,2*nvals*id.multiplier(rr),matType,kTocEndian);                               
+                                data= data(1:2:end)+1i*data(2:2:end);
+                                cnt = cnt/2;
+                                size(data)
+                            else                                
+                                [data,cnt]=fread(fid,nvals*id.multiplier(rr),matType,kTocEndian);
+                            end
+                            % Haench end
+                            % Original: [data,cnt]=fread(fid,nvals*id.multiplier(rr),matType,kTocEndian);
                         end
                 end
                 
@@ -1518,6 +1537,12 @@ switch(LVType)
         sz=NaN;
     case 11
         sz=10;
+    % Added by Haench for tdsTypeComplexSingleFloat=0x08000c,tdsTypeComplexDoubleFloat=0x10000d,
+    case 524300
+        sz=8;
+    case 1048589
+        sz=16;
+    % end add haench
     otherwise
         error('LVData type %d is not defined',LVType)
 end
@@ -1565,6 +1590,12 @@ switch LVType
         matType='bit1';
     case 68  %tdsTypeTimeStamp
         matType='2*int64';
+    % Added by Haench for tdsTypeComplexSingleFloat=0x08000c,tdsTypeComplexDoubleFloat=0x10000d,
+    case 524300
+        matType='single';
+    case 1048589
+        matType='double';
+    % end add haench
     otherwise
         matType='Undefined';
 end

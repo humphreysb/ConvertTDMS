@@ -1223,7 +1223,6 @@ for kk=1:length(fnm)    %Loop through objects
                                 [data,cnt]=fread(fid,2*nvals*id.multiplier(rr),matType,kTocEndian);                               
                                 data= data(1:2:end)+1i*data(2:2:end);
                                 cnt = cnt/2;
-                                size(data)
                             else                                
                                 [data,cnt]=fread(fid,nvals*id.multiplier(rr),matType,kTocEndian);
                             end

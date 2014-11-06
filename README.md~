@@ -16,11 +16,13 @@ These functions also work with tdms files that contain channels using the DAQmxR
 Test Files
 ============
 
+
 The exampleFiles directory contains some simple files to test and troubleshoot with.    Please update the testFileInventoryList.txt to describe your file and any issues with it.  (Note that GitHub limits file uploads to 100MB). 
 
 
 TDMS Best Practices
 ============
+
 
 Most issues with converting TDMS files comes from  how the were orginally written.  This is much more true with older (v1.0) files which wrote a meta data header each time the write vi was executed in MATLAB.  With that said, please note the following about LV programming best practices:
 
@@ -43,6 +45,7 @@ If you need a way to see what channels are in the file without loading whole fil
 
 History
 ============
+
 
 It was written in MATLAB 2010b. The original function was based on the work by Brad Humphreys of ZIN Technologies and Grant Lohsen & Jeff Sitterle of GTRI (versions 1 through 4 of this function). The Version 9 function (written by Philip Top), in addition to incorporating the various updates that were added to previous versions, can process files that have been "optimized" by LabView. Robert Seltzer of Borg Warner has provided a great deal of support and input.  this version is the first using FileEx's new GitHub interface (thanks Mathworks!).
 

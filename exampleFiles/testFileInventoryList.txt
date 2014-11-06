@@ -1,0 +1,3 @@
+This directory contains example TDMS files for use in troubleshooting and check-out.
+
+simple_test.tdms - File contributed by haench.  Includes complex number data types.

@@ -1499,7 +1499,7 @@ switch(LVType)
         sz=1;
     case 68
         sz=16;
-    case {4,8,10}  % Added 4 per Jan.
+    case {4,8,10}  % Added per Jan.
         sz=8;
     case {3,7,9}
         sz=4;
